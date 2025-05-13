@@ -9,7 +9,7 @@ let allNumbers = []; // Store all numbers to ensure all 90 numbers are read
 
 // Hàm phát âm thanh cho số đã chọn
 function playSound(number) {
-    const audio = new Audio(`sounds/${currentVoice}/lotofa/${number}.m4a`);
+    const audio = new Audio(`sounds/${selectedVoiceFolder}/lotofa/${number}.m4a`);
     audio.play();
 }
 
@@ -45,10 +45,11 @@ function addToHistory(number) {
 
 // Hàm thay đổi giọng nói
 function changeVoice(voice) {
-    selectedVoiceFolder = voice;
-    if (voice === 'Khoa') {
-        selectedVoiceFolder = 'Khoa';
-    }
+    currentVoice = voice; // Update the current voice
+    selectedVoiceFolder = voice; // Ensure the folder is updated correctly
+
+    // Log the selected voice for debugging
+    console.log(`Voice changed to: ${voice}`);
 }
 
 // Hàm sắp xếp các số theo cột
@@ -164,6 +165,10 @@ function adjustGameWindow() {
 const voiceSelect = document.getElementById('voiceSelect');
 voiceSelect.addEventListener('change', () => {
     currentVoice = voiceSelect.value; // Cập nhật giọng nói hiện tại
+    selectedVoiceFolder = voiceSelect.value; // Đảm bảo thư mục giọng nói được cập nhật chính xác
+
+    // Log the selected voice for debugging
+    console.log(`Voice changed to: ${currentVoice}`);
 });
 
 // Removed all other references to 'startButton' except for the one on the rabbit
@@ -228,3 +233,87 @@ function goToHomePage() {
     document.getElementById('homeIcon').style.display = 'none';
     document.getElementById('continueButton').style.display = 'none';
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const voiceIcon = document.getElementById('voiceIcon');
+    const voiceModal = document.getElementById('voiceModal');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const rabbitStartButton = document.querySelector('.rabbit-container .start-button');
+    const stopButton = document.getElementById('stopButton');
+    const continueButton = document.getElementById('continueButton');
+    const homeIcon = document.getElementById('homeIcon');
+
+    // Gán sự kiện Start Game
+    rabbitStartButton.addEventListener('click', startGame);
+
+    // Gán sự kiện Dừng
+    stopButton.addEventListener('click', () => {
+        stopGame = true;
+        isGameRunning = false;
+    });
+
+    // Gán sự kiện Tiếp tục
+    continueButton.addEventListener('click', () => {
+        if (isGameRunning) return;
+        stopGame = false;
+        isGameRunning = true;
+
+        (async function continueGame() {
+            while (allNumbers.length > 0) {
+                if (stopGame) {
+                    isGameRunning = false;
+                    break;
+                }
+
+                const randomIndex = Math.floor(Math.random() * allNumbers.length);
+                const randomNumber = allNumbers.splice(randomIndex, 1)[0];
+                const numberBox = document.getElementById(`number-${randomNumber}`);
+
+                playSound(randomNumber);
+                if (numberBox) numberBox.classList.add('toggled');
+                addToHistory(randomNumber);
+                await new Promise(resolve => setTimeout(resolve, 6000));
+            }
+
+            isGameRunning = false;
+        })();
+    });
+
+    // Gán sự kiện quay về trang chủ
+    homeIcon.addEventListener('click', () => {
+        location.reload();
+        homeIcon.style.display = 'none';
+        continueButton.style.display = 'none';
+    });
+
+    // Gán sự kiện chọn voice
+    voiceSelect.addEventListener('change', () => {
+        changeVoice(voiceSelect.value);
+        highlightSelectedVoice();
+    });
+
+    // Mở/tắt modal chọn giọng
+    voiceIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isOpen = voiceModal.style.display === 'block';
+        voiceModal.style.display = isOpen ? 'none' : 'block';
+        highlightSelectedVoice();
+    });
+
+    // Click ra ngoài sẽ đóng modal
+    window.addEventListener('click', (event) => {
+        if (!voiceModal.contains(event.target) && event.target !== voiceIcon) {
+            voiceModal.style.display = 'none';
+        }
+    });
+
+    // Hàm tô màu option đang được chọn
+    function highlightSelectedVoice() {
+        const selectedVoice = voiceSelect.value;
+        Array.from(voiceSelect.options).forEach(option => {
+            option.classList.toggle('selected', option.value === selectedVoice);
+        });
+    }
+});
+
+
+

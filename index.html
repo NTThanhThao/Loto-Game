@@ -11,13 +11,16 @@
         <h1 class="game-title">Lô Tô Nhà Làm</h1>
         <!-- Lựa chọn giọng nói -->
         <div class="voice-controls">
-            <label for="voiceSelect">Chọn Giọng Nói:</label>
-            <select id="voiceSelect">
-                <option value="Sâu">Giọng Pé Địu</option>
-                <option value="Thao">Giọng Trụy Be</option>
-                <option value="Khoa">Giọng Aca</option>
-                <option value="Mom">Giọng "nước trong"</option>
-            </select>
+            <span id="voiceIcon" class="voice-icon">🎵</span>
+            <div id="voiceModal" class="voice-modal" style="display: none;">
+                <h2>Chọn Giọng Kêu Lô Tô</h2>
+                <select id="voiceSelect">
+                    <option value="Sâu">Giọng Pé Địu</option>
+                    <option value="Thao">Giọng Trụy Be</option>
+                    <option value="Khoa">Giọng Aca</option>
+                    <option value="Mom">Giọng "nước trong"</option>
+                </select>
+            </div>
         </div>
 
         <!-- Khu vực hiển thị các số lô tô -->

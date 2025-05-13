@@ -238,3 +238,27 @@ body {
     z-index: 3; /* Ensure it is above other elements */
 }
 
+#voiceIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Move the voice icon to the right */
+    font-size: 30px; /* Match the size of the home icon */
+    cursor: pointer;
+    z-index: 3; /* Ensure it is above other elements */
+}
+
+#voiceModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10000; /* Ensure it is above all other elements */
+    width: 300px; /* Set a fixed width */
+    text-align: center; /* Center the content */
+}
+
