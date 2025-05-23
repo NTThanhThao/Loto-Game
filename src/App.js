@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import VoiceModal from './VoiceModal';
 import NumberContainer from './NumberContainer';
-import History from './History';
 import Controls from './Controls';
 import './App.css';
 
@@ -15,22 +14,61 @@ function App() {
   const [gameInterval, setGameInterval] = useState(null);
   const [showHome, setShowHome] = useState(true);
   const stopGameRef = useRef(stopGame);
+  const gameBackgrounds = [
+    '/tay.jpg',
+    '/tphcm.jpg',
+    '/trung.jpg',
+  ];
+  const [bgIndex, setBgIndex] = useState(0);
+  const bgIntervalRef = useRef(null);
+  const currentVoiceRef = useRef(currentVoice);
 
   useEffect(() => {
     stopGameRef.current = stopGame;
   }, [stopGame]);
 
   useEffect(() => {
+    currentVoiceRef.current = currentVoice;
+  }, [currentVoice]);
+
+  useEffect(() => {
     if (!showHome && isGameRunning) {
       document.body.classList.add('game-running');
-      document.body.style.backgroundImage = `url('/Picture1.png')`;
+      document.body.style.backgroundImage = `url('${gameBackgrounds[bgIndex]}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
+      // Đổi hình mỗi 30s
+      if (!bgIntervalRef.current) {
+        bgIntervalRef.current = setInterval(() => {
+          setBgIndex(prev => (prev + 1) % gameBackgrounds.length);
+        }, 30000);
+      }
+    } else if (!showHome && !isGameRunning) {
+      // Khi dừng game, giữ nguyên hình nền hiện tại, dừng interval
+      document.body.classList.add('game-running');
+      document.body.style.backgroundImage = `url('${gameBackgrounds[bgIndex]}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      if (bgIntervalRef.current) {
+        clearInterval(bgIntervalRef.current);
+        bgIntervalRef.current = null;
+      }
     } else {
       document.body.classList.remove('game-running');
       document.body.style.backgroundImage = '';
+      if (bgIntervalRef.current) {
+        clearInterval(bgIntervalRef.current);
+        bgIntervalRef.current = null;
+      }
+      setBgIndex(0);
     }
-  }, [isGameRunning, showHome]);
+    return () => {
+      if (bgIntervalRef.current) {
+        clearInterval(bgIntervalRef.current);
+        bgIntervalRef.current = null;
+      }
+    };
+  }, [isGameRunning, showHome, bgIndex]);
 
   useEffect(() => {
     // Cleanup interval on unmount
@@ -41,7 +79,9 @@ function App() {
 
   const playSound = (number) => {
     try {
-      const audio = new Audio(`/sounds/${currentVoice}/lotofa/${number}.m4a`);
+      // Lấy giá trị currentVoice mới nhất từ ref
+      const audio = new window.Audio(`/sounds/${currentVoiceRef.current}/lotofa/${number}.m4a?ts=${Date.now()}`);
+      audio.load();
       audio.play().catch((error) => {
         alert(`Không tìm thấy file âm thanh cho số: ${number}`);
       });
@@ -125,11 +165,19 @@ function App() {
   return (
     <div className="container">
       <VoiceModal currentVoice={currentVoice} setCurrentVoice={setCurrentVoice} />
-      <div className="current-number-display">
-        {currentNumber !== null ? currentNumber : '---'}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
+        <div className="history-container" style={{ minWidth: 120, textAlign: 'right' }}>
+          {history.slice(0, history.length - 1).map((num, idx) => (
+            <span key={idx} style={{ fontSize: '1.2rem', color: '#333', fontWeight: 'bold' }}>
+              {num}{idx < history.length - 2 ? ' - ' : ''}
+            </span>
+          ))}
+        </div>
+        <div className="current-number-display">
+          {currentNumber !== null ? currentNumber : '---'}
+        </div>
       </div>
       <NumberContainer allNumbers={allNumbers} currentNumber={currentNumber} />
-      <History history={history} currentNumber={currentNumber} />
       <Controls
         isGameRunning={isGameRunning}
         startGame={startGame}

@@ -28,24 +28,6 @@ body {
   z-index: 0;
 }
 
-.rabbit-container {
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.rabbit-image {
-  width: 350px;
-  height: auto;
-  margin-bottom: -190px;
-  z-index: 0;
-  margin-right: -72px;
-}
-
 .star-container {
   position: fixed;
   right: 30px;
@@ -119,9 +101,11 @@ body.game-running {
 }
 
 .current-number-display {
+  text-align: center;
   font-size: 4rem;
-  margin: 20px;
-  color: #ff69b4;
+  margin: 5px;
+  margin-right: 182px;
+  color: #ff0000;
   font-weight: bold;
 }
 
@@ -156,7 +140,7 @@ body.game-running {
 }
 
 .number-box.toggled-green {
-  background: #e482b6 !important;
+  background: #fe3737 !important;
   color: #fff !important;
 }
 
@@ -167,7 +151,15 @@ body.game-running {
 }
 
 .control-buttons {
-  margin: 20px;
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  margin: 0;
+  min-width: 160px;
 }
 
 .button-icon {
@@ -175,4 +167,132 @@ body.game-running {
   height: 24px;
   vertical-align: middle;
   margin-right: 6px;
+}
+
+.voice-controls {
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  z-index: 10;
+}
+
+.voice-heart-bg {
+  display: inline-block;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: gold;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.voice-icon {
+  cursor: pointer;
+  font-size: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.icon-btn-bg {
+  display: inline-block;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: gold;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  margin: 0 8px 0 0;
+}
+
+.icon-btn {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .container {
+    min-height: unset;
+    padding-bottom: 80px;
+  }
+  .game-title {
+    font-size: 3rem;
+  }
+  .current-number-display {
+    font-size: 2.5rem;
+    margin-right: 0;
+  }
+  .number-box {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .star-container {
+    right: 10px;
+    bottom: 10px;
+    width: 180px;
+    height: 180px;
+  }
+  .start-button, .start-button svg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 4px 60px 4px;
+  }
+  .game-title {
+    font-size: 2rem;
+    text-shadow: 0 0 5px #f33214, 0 0 10px #da2626;
+  }
+  .current-number-display {
+    font-size: 1.5rem;
+    margin-right: 0;
+  }
+  .number-box {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+  .history-container {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+  .control-buttons, .voice-controls {
+    top: 8px;
+    right: 8px;
+    min-width: unset;
+    gap: 4px;
+  }
+  .icon-btn-bg, .voice-heart-bg {
+    width: 36px;
+    height: 36px;
+  }
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .star-container {
+    right: 2px;
+    bottom: 2px;
+    width: 100px;
+    height: 100px;
+  }
+  .start-button, .start-button svg {
+    width: 60px;
+    height: 60px;
+  }
+  .start-button span {
+    font-size: 10px;
+  }
 }
