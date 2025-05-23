@@ -9,6 +9,12 @@ function VoiceModal({ currentVoice, setCurrentVoice }) {
     { value: 'Truc', label: 'Giọng Pé Địu' },
   ];
 
+  // Đóng modal khi chọn giọng nói
+  const handleVoiceChange = (e) => {
+    setCurrentVoice(e.target.value);
+    setShowModal(false);
+  };
+
   return (
     <div className="voice-controls" style={{ position: 'absolute', top: 20, left: 450, right: 10, zIndex: 10 }}>
       <span className="voice-heart-bg" style={{ display: 'inline-block', position: 'relative', width: 38, height: 38, background: 'gold', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}>
@@ -38,10 +44,11 @@ function VoiceModal({ currentVoice, setCurrentVoice }) {
           <select
             id="voiceSelect"
             value={currentVoice}
-            onChange={(e) => setCurrentVoice(e.target.value)}
+            onChange={handleVoiceChange}
             style={{
               fontSize: 16,
               padding: 8,
+             
               borderRadius: 5,
               marginBottom: 10,
             }}

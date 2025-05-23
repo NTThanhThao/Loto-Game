@@ -79,11 +79,14 @@ function App() {
 
   const playSound = (number) => {
     try {
-      // Lấy giá trị currentVoice mới nhất từ ref
-      const audio = new window.Audio(`/sounds/${currentVoiceRef.current}/lotofa/${number}.m4a?ts=${Date.now()}`);
+      // Đảm bảo tên voice và số là string, không có ký tự lạ
+      const voice = String(currentVoiceRef.current);
+      const num = String(number);
+      // Đường dẫn tuyệt đối từ gốc public, không thêm dấu / ở cuối domain
+      const audio = new window.Audio(`/sounds/${voice}/lotofa/${num}.m4a?ts=${Date.now()}`);
       audio.load();
       audio.play().catch((error) => {
-        alert(`Không tìm thấy file âm thanh cho số: ${number}`);
+        alert(`Không tìm thấy file âm thanh cho số: ${num} (voice: ${voice})`);
       });
     } catch (error) {
       alert(`Lỗi khi phát âm thanh cho số: ${number}`);
@@ -165,6 +168,15 @@ function App() {
   return (
     <div className="container">
       <VoiceModal currentVoice={currentVoice} setCurrentVoice={setCurrentVoice} />
+      {/* Icon ngôi nhà */}
+      <button
+        className="icon-btn"
+        style={{ position: 'fixed', top:'2.5rem', left:'24.5rem', zIndex: 20, background: 'gold', borderRadius: '30%', width: '2.4rem', height: '2.4rem', border: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.10)', cursor: 'pointer' }}
+        onClick={() => setShowHome(true)}
+        title="Về trang chủ"
+      >
+        <span role="img" aria-label="home" style={{ fontSize: '1.6rem' }}>🏠</span>
+      </button>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
         <div className="history-container" style={{ minWidth: 120, textAlign: 'right' }}>
           {history.slice(0, history.length - 1).map((num, idx) => (
