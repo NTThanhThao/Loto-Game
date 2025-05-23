@@ -34,7 +34,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public/index.html', to: 'index.html' }
+        { from: 'public/index.html', to: 'index.html' },
+        { from: 'public', to: '.', globOptions: { ignore: ['**/index.html'] } }
       ]
     })
   ],
