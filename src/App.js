@@ -22,6 +22,7 @@ function App() {
   const [bgIndex, setBgIndex] = useState(0);
   const bgIntervalRef = useRef(null);
   const currentVoiceRef = useRef(currentVoice);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     stopGameRef.current = stopGame;
@@ -79,14 +80,37 @@ function App() {
 
   const playSound = (number) => {
     try {
-      // Đảm bảo tên voice và số là string, không có ký tự lạ
       const voice = String(currentVoiceRef.current);
       const num = String(number);
-      // Đường dẫn tuyệt đối từ gốc public, không thêm dấu / ở cuối domain
-      const audio = new window.Audio(`/sounds/${voice}/lotofa/${num}.m4a?ts=${Date.now()}`);
+      const audioUrl = `/sounds/${voice}/lotofa/${num}.m4a?ts=${Date.now()}`;
+      if (!audioRef.current) {
+        audioRef.current = new window.Audio();
+      }
+      const audio = audioRef.current;
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = audioUrl;
       audio.load();
-      audio.play().catch((error) => {
-        alert(`Không tìm thấy file âm thanh cho số: ${num} (voice: ${voice})`);
+      const playPromise = new Promise((resolve, reject) => {
+        const onCanPlay = () => {
+          audio.removeEventListener('canplaythrough', onCanPlay);
+          audio.play().then(resolve).catch(reject);
+        };
+        audio.addEventListener('canplaythrough', onCanPlay);
+        // fallback nếu canplaythrough không gọi sau 1s
+        setTimeout(() => {
+          audio.removeEventListener('canplaythrough', onCanPlay);
+          audio.play().then(resolve).catch(reject);
+        }, 1000);
+      });
+      playPromise.catch(() => {
+        // Thử lại 1 lần nữa sau 300ms nếu lỗi
+        setTimeout(() => {
+          audio.load();
+          audio.play().catch(() => {
+            alert(`Không tìm thấy file âm thanh cho số: ${num} (voice: ${voice})`);
+          });
+        }, 300);
       });
     } catch (error) {
       alert(`Lỗi khi phát âm thanh cho số: ${number}`);
