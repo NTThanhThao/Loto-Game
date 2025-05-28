@@ -15,7 +15,7 @@ const columns = [
 function NumberContainer({ allNumbers, currentNumber }) {
   // Render theo cột dọc 10 số, 9 cột ngang
   return (
-    <div className="number-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(9, 1fr)', gap: '8px', justifyItems: 'center', maxWidth: 500, margin: '0 auto' }}>
+    <div className="number-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(9, 1fr)', gap: '8px', justifyItems: 'center' }}>
       {Array.from({ length: 10 }).map((_, rowIdx) =>
         columns.map((col, colIdx) => {
           const number = col[rowIdx];

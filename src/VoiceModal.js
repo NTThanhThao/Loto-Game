@@ -27,19 +27,7 @@ function VoiceModal({ currentVoice, setCurrentVoice }) {
         </span>
       </span>
       {showModal && (
-        <div
-          className="voice-modal"
-          style={{
-            background: '#fff',
-            borderRadius: 10,
-            padding: 20,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-            position: 'absolute',
-            top: 40,
-            right: 0,
-            zIndex: 10,
-          }}
-        >
+        <div className="voice-modal">
           <h2 style={{ marginTop: 0 }}>Chọn Giọng Kêu Lô Tô</h2>
           <select
             id="voiceSelect"
@@ -48,7 +36,6 @@ function VoiceModal({ currentVoice, setCurrentVoice }) {
             style={{
               fontSize: 16,
               padding: 8,
-             
               borderRadius: 5,
               marginBottom: 10,
             }}

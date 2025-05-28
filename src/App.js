@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import VoiceModal from './VoiceModal';
 import NumberContainer from './NumberContainer';
-import Controls from './Controls';
 import './App.css';
 
 function App() {
@@ -118,7 +117,7 @@ function App() {
   };
 
   const addToHistory = (number) => {
-    setHistory((prev) => [...prev, number].slice(-5));
+    setHistory((prev) => [...prev, number].slice(-4));
   };
 
   const startGame = () => {
@@ -194,12 +193,11 @@ function App() {
       <VoiceModal currentVoice={currentVoice} setCurrentVoice={setCurrentVoice} />
       {/* Icon ngôi nhà */}
       <button
-        className="icon-btn"
-        style={{ position: 'fixed', top:'2.5rem', left:'24.5rem', zIndex: 20, background: 'gold', borderRadius: '30%', width: '2.4rem', height: '2.4rem', border: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.10)', cursor: 'pointer' }}
+        className="home-btn"
         onClick={() => setShowHome(true)}
         title="Về trang chủ"
       >
-        <span role="img" aria-label="home" style={{ fontSize: '1.6rem' }}>🏠</span>
+        <span role="img" aria-label="home" className="home-icon">🏠</span>
       </button>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
         <div className="history-container" style={{ minWidth: 120, textAlign: 'right' }}>
@@ -214,14 +212,14 @@ function App() {
         </div>
       </div>
       <NumberContainer allNumbers={allNumbers} currentNumber={currentNumber} />
-      <Controls
-        isGameRunning={isGameRunning}
-        startGame={startGame}
-        stopGame={stopGameHandler}
-        continueGame={continueGame}
-        stopGameState={stopGame}
-        allNumbers={allNumbers}
-      />
+      {/* Nút Dừng và Tiếp tục */}
+      <div className="center-controls-fixed">
+        {isGameRunning ? (
+          <button className="control-btn" onClick={stopGameHandler} title="Dừng"><span role="img" aria-label="stop">⏹️</span></button>
+        ) : (!showHome && stopGame && allNumbers.length > 0 ? (
+          <button className="control-btn" onClick={continueGame} title="Tiếp tục"><span role="img" aria-label="play">▶️</span></button>
+        ) : null)}
+      </div>
     </div>
   );
 }
