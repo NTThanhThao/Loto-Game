@@ -400,7 +400,7 @@ body.game-running {
   .number-box {
     width: 28vw;
     height: 28vw;
-    margin-top: 10px;
+    margin-top: 4px;
 
     font-size: 2.5vw;
     min-width: 18px;
@@ -408,7 +408,7 @@ body.game-running {
   }
   .number-container {
     position: relative;
-    margin-top: 10vw;
+    margin-top: 5vw;
   }
   .start-button, .start-button svg {
     width: 80vw;
@@ -430,8 +430,8 @@ body.game-running {
   }
   .history-container {
     font-size: -3.6rem;
-    margin-top: 4vw;
-    margin-bottom: -73vw;
+    margin-top: 1vw;
+    margin-bottom: -63vw;
   }
   .history-item-custom {
     font-size: 2.5rem;
@@ -442,7 +442,7 @@ body.game-running {
     margin-top: 24vw;
   }
   .current-number-display {
-    margin-top: 15.5vw;
+    margin-top: 6.5vw;
     margin-bottom: -220px;
   }
 
