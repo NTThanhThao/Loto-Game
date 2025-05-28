@@ -194,7 +194,10 @@ function App() {
       {/* Icon ngôi nhà */}
       <button
         className="home-btn"
-        onClick={() => setShowHome(true)}
+        onClick={() => {
+          stopGameHandler();
+          setShowHome(true);
+        }}
         title="Về trang chủ"
       >
         <span role="img" aria-label="home" className="home-icon">🏠</span>
