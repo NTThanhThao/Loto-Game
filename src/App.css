@@ -400,7 +400,7 @@ body.game-running {
   .number-box {
     width: 28vw;
     height: 28vw;
-    margin-top: 20px;
+    margin-top: 10px;
 
     font-size: 2.5vw;
     min-width: 18px;
@@ -408,7 +408,7 @@ body.game-running {
   }
   .number-container {
     position: relative;
-    margin-top: 24vw;
+    margin-top: 10vw;
   }
   .start-button, .start-button svg {
     width: 80vw;
@@ -430,7 +430,7 @@ body.game-running {
   }
   .history-container {
     font-size: -3.6rem;
-    margin-top: 16vw;
+    margin-top: 4vw;
     margin-bottom: -73vw;
   }
   .history-item-custom {
@@ -442,8 +442,8 @@ body.game-running {
     margin-top: 24vw;
   }
   .current-number-display {
-    margin-top: 41.5vw;
-    margin-bottom: -170px;
+    margin-top: 15.5vw;
+    margin-bottom: -220px;
   }
 
   .start-button:hover .star-shape {
@@ -456,7 +456,7 @@ body.game-running {
   .home-btn {
     position: fixed;
     left: 1rem;
-    top: 6rem;
+    top: 3.5rem;
     z-index: 20;
     background: gold;
     border-radius: 20%;
@@ -476,7 +476,7 @@ body.game-running {
 
   .voice-controls {
     margin-left: 10vw;
-    margin-top: 57px;
+    margin-top: 17px;
   }
 
   .control-buttons {
@@ -493,7 +493,7 @@ body.game-running {
 
 .center-controls-fixed {
   position: fixed;
-  top: 85px;
+  top: 45px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
