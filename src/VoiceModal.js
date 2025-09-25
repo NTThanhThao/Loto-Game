@@ -16,7 +16,7 @@ function VoiceModal({ currentVoice, setCurrentVoice }) {
   };
 
   return (
-    <div className="voice-controls" style={{ position: 'absolute', top: 20, left: 450, right: 10, zIndex: 10 }}>
+    <div className="voice-controls" style={{ position: 'absolute', top: 20, right: 50, zIndex: 10 }}>
       <span className="voice-heart-bg" style={{ display: 'inline-block', position: 'relative', width: 38, height: 38, background: 'gold', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}>
         <span
           className="voice-icon"

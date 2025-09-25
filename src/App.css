@@ -254,6 +254,7 @@ body.game-running {
   width: 100%;
 }
 
+
 @media (min-width: 500px) {
   .voice-modal {
     max-width: 400px;
@@ -524,5 +525,49 @@ body.game-running {
   .control-btn {
     font-size: 1rem;
     padding: 10px 10px;
+  }
+}
+
+@media (min-width: 692px) {
+  .voice-controls {
+    right: 50px;
+    left: unset !important;
+  }
+  .center-controls-fixed {
+    left: unset;
+    right: 310px;
+    top: 35px;
+    transform: none;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+  .control-btn {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
+    font-size: 26px;
+    padding: 0;
+    border-radius: 12px;
+    margin: 0 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-btn {
+    left: 3.5rem;
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .home-icon {
+    font-size: 27px !important;
+    line-height: 1;
   }
 }
