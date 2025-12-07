@@ -530,7 +530,7 @@ body.game-running {
 
 @media (min-width: 692px) {
   .voice-controls {
-    right: 50px;
+    left: 50px; 
     left: unset !important;
   }
   .center-controls-fixed {
